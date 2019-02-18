@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+    <title>Trade Bridge Coin - Deposit</title>
+</head>
+<body>
+
+    <h3>Account</h3>
+    <p id="account"></p>
+    <h3>Deposit</h3>
+    <div><input id="ethers_deposit" type="number" style="width: 20em" placeholder="ethers to deposit. balance: loading..." step="0.000001" min="0" max="1000" required></div>
+    <p></p>
+    <div><input id="gas_price" type="number" style="width: 20em" placeholder="gas price: loading..." step="1" min="0" max="1000000"></div>
+    <p></p>
+    <div><label for="decryption">account decryption: </label><select id="decryption" value="keystore">
+        <option value="mnemonic">Mnemonic</option>
+        <option value="private_key">Private Key</option>
+        <option value="keystore">Keystore</option>
+    </select></div>
+    <p></p>
+    <div>* the decryption needs to be input later on to authorize the transaction and then will be FORGOTTEN.</div>
+    <p></p>
+    <div><button id="next_btn">Next</button></div>
+    <p></p>
+    <div>spot token price: <label id="token_price" style="color: blue"></label></div>
+    <p></p>
+    <div><label id="err_msg" style="color: red"></label></div>
+    <p></p>
+    <div><label id="bulk_price"></label></div>
+    <p id="mnemonic_p1" hidden></p>
+    <div><input id="mnemonic_input" type="password" style="width: 50em" placeholder="mnemonic" hidden></div>
+    <p id="mnemonic_p2" hidden></p>
+    <div><input id="mnemonic_index" type="number" style="width: 50em" placeholder="mnemonic account index" step="1" min="0" hidden></div>
+    <p id="pk_p1" hidden></p>
+    <div><input id="pk_key" type="password" style="width: 50em" placeholder="private key" hidden></div>
+    <p></p>
+    <p id="keystore_p1" hidden></p>
+    <div><input id="keystore_file" type="file" hidden></div>
+    <p id="keystore_p2" hidden></p>
+    <div><input id="keystore_pwd" type="password" style="width: 50em" placeholder="keystore password" hidden></div>
+    <p></p>
+    <button id="deposit_ether" hidden>Deposit Ethers</button>
+    <p></p>
+    <div><label id="tx_msg" style="color: blue"></label></div>
+
+    <script src="../js/deposit.js"></script>
+
+</body>
+</html>

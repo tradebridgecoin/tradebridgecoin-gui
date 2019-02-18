@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+<style>
+    .tooltip {
+        position: relative;
+        display: inline-block;
+        border-bottom: 1px dotted black;
+    }
+
+    .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 450px;
+        background-color: #555;
+        color: #fff;
+        text-align: left;
+        border-radius: 6px;
+        padding: 5px 0;
+        position: absolute;
+        z-index: 1;
+        bottom: 125%;
+        left: 50%;
+        margin-left: 10px;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+    .tooltip .tooltiptext::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: #555 transparent transparent transparent;
+    }
+
+    .tooltip:hover .tooltiptext {
+        visibility: visible;
+        opacity: 1;
+    }
+</style>
+<head>
+    <title>Trade Bridge Coin - Settings</title>
+</head>
+<body>
+
+<h3>Settings</h3>
+<div>
+    <div class="tooltip">Account
+        <span class="tooltiptext" id="account_label">the setting is on an account basis. therefore a valid Ethereum address is necessary for the settings</span>
+    </div>
+    <p id="account"></p>
+    <div class="tooltip" id="tooltip_mainnet">Ethereum Node (mainnet)
+        <span class="tooltiptext" id="node_main_label">a mainnet Ethereum Node for the live trading client to connect to, whether it be public node such as Infura or a private node running locally</span>
+    </div>
+    <p>
+        <div>
+            <input id="endpoint_live" type="text" style="width: 30em" required>
+        </div>
+    <p>
+    <div class="tooltip" id="tooltip_testnet">Ethereum Node (testnet)
+        <span class="tooltiptext" id="node_test_label">an testnet Ethereum Node for the paper trading client to connect to, whether it be public node such as Infura or a private node running locally</span>
+    </div>
+    <p>
+        <div>
+            <input id="endpoint_paper" type="text" style="width: 30em" required>
+        </div>
+    <p>
+    <div class="tooltip">Ethereum Node In Use
+        <span class="tooltiptext" id="node_in_use_label">choose the ethereum node to use</span>
+    </div>
+    <p>
+        <select id="ethereumNet" disabled>
+            <option value="mainnet">mainnet</option>
+            <option value="testnet">testnet</option>
+        </select>
+    </p>
+    <div class="tooltip">Starting Block Number
+        <span class="tooltiptext" id="startingBlockNumber_label">the staring block number on the Ethereum blockchain, from which on transaction records will be retrieved. leave it empty if no historical transactions and/or positions need to be retrieved and listed</span>
+    </div>
+    <p>
+        <div >
+            <input id="startingBlockNumber" type="number" style="width: 5em" required>
+        </div>
+    <p>
+    <div class="tooltip">Referred by
+        <span class="tooltiptext" id="referrer_label">an Ehtereum address of the referrer. leave it empty if you are on your own</span>
+    </div>
+    <p>
+        <div >
+            <input id="referrer" type="text" style="width: 30em" required>
+        </div>
+    <p>
+    <p></p>
+    <div><button id="settings_ok_btn" style="margin-right: 20px">OK</button>
+    <button id="settings_cancel_btn">CANCEL</button></div>
+</div>
+
+
+<div><label id="settings_msg" style="color: blue"></label></div>
+
+<script src="../js/settings.js"></script>
+
+</body>
+</html>
