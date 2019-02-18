@@ -1,0 +1,125 @@
+<!doctype html>
+<html>
+<style>
+    .tooltip {
+        position: relative;
+        display: inline-block;
+        border-bottom: 1px dotted black;
+    }
+
+    .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 450px;
+        background-color: #555;
+        color: #fff;
+        text-align: left;
+        border-radius: 6px;
+        padding: 5px 0;
+        position: absolute;
+        z-index: 1;
+        bottom: 125%;
+        left: 50%;
+        margin-left: 10px;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+    .tooltip .tooltiptext::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: #555 transparent transparent transparent;
+    }
+
+    .tooltip:hover .tooltiptext {
+        visibility: visible;
+        opacity: 1;
+    }
+</style>
+<head>
+    <title>Trade Bridge Coin - Order</title>
+</head>
+<body>
+
+<h3>Account</h3>
+<p id="account"></p>
+<h3>Order</h3>
+<div>
+    <p><select id="open_close">
+        <option value="void">open/close</option>
+        <option value="1">open</option>
+        <option value="-1">close</option>
+    </select></p>
+    <p><select id="direction">
+        <option value="void">direction</option>
+        <option value="1">long</option>
+        <option value="-1">short</option>
+    </select></p>
+    <select id="category">
+        <option value="void">category</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+    </select>
+    <div class="tooltip">tips
+        <span class="tooltiptext" id="category_tip">Pick a category and check out the tips once again</span>
+    </div>
+    <div class="tooltip" id="ivx_warning" style="margin: 20px;color: red;visibility: hidden;">WARNING
+        <span class="tooltiptext" id="ivx_warning_tip">IVX long positions incur a daily 0.25% decay <br> and short positions benefit from a daily 0.25% gain, both before leverage. </span>
+    </div>
+    <p>
+        <input type="search" id="symbol" list="history_symbols" style="width: 20em;" placeholder="symbol"/>
+        <datalist id="history_symbols">
+        </datalist>
+        <button id="symbol_quote" style="margin-left: 10px">Quote</button>
+        <label style="margin-left: 10px" id="quote"></label>
+    </p>
+</div>
+<div><input id="limit_price" type="number" style="width: 20em" placeholder="worst price acceptable, blank for not specified" min="0"></div>
+<p></p>
+<div><input id="tokens_to_invest" type="number" style="width: 20em" placeholder="tokens to invest. balance: loading..." step="0.000001" min="0" required></div>
+<p></p>
+<div><input id="gas_price" type="number" style="width: 20em" placeholder="gas price: loading..." step="1" min="0" max="1000000"></div>
+<p></p>
+<div>
+    <p><input id="leverage" type="number" style="width: 20em;" placeholder="leverage" step="0.1" min="0.1" max="20" required></p>
+</div>
+<p></p>
+<div><label for="decryption">account decryption: </label><select id="decryption">
+    <option value="mnemonic">Mnemonic</option>
+    <option value="private_key">Private Key</option>
+    <option value="keystore">Keystore</option>
+</select></div>
+<p></p>
+<div>* the decryption needs to be input later on to authorize the transaction and then will be FORGOTTEN.</div>
+<p></p>
+<div><button id="next_btn">Next</button></div>
+<p></p>
+<div><label id="err_msg" style="color: red"></label></div>
+<p></p>
+<div><label id="bulk_price"></label></div>
+<p id="mnemonic_p1" hidden></p>
+<div><input id="mnemonic_input" type="password" style="width: 50em" placeholder="mnemonic" hidden></div>
+<p id="mnemonic_p2" hidden></p>
+<div><input id="mnemonic_index" type="number" style="width: 50em" placeholder="mnemonic account index" step="1" min="0" hidden></div>
+<p id="pk_p1" hidden></p>
+<div><input id="pk_key" type="password" style="width: 50em" placeholder="private key" hidden></div>
+<p></p>
+<p id="keystore_p1" hidden></p>
+<div><input id="keystore_file" type="file" hidden></div>
+<p id="keystore_p2" hidden></p>
+<div><input id="keystore_pwd" type="password" style="width: 50em" placeholder="keystore password" hidden></div>
+<p></p>
+<button id="place_order" hidden>Place Order</button>
+<p></p>
+<div><label id="tx_msg" style="color: blue"></label></div>
+
+<script src="../js/order.js"></script>
+
+</body>
+</html>

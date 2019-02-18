@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+<head>
+    <title>Trade Bridge Coin - Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="formatted_table/images/icons/favicon.ico"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="formatted_table/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="formatted_table/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="formatted_table/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="formatted_table/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="formatted_table/vendor/perfect-scrollbar/perfect-scrollbar.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="formatted_table/css/util.css">
+    <link rel="stylesheet" type="text/css" href="formatted_table/css/main.css">
+    <!--===============================================================================================-->
+</head>
+<body>
+<div id="demo">
+    <div align="left" style="background: red">
+        <label style="margin-left: 0em;color: white;font-size: 12px;font-weight:bold" id="paperTrading"  hidden>PAPER TRADING</label>
+    </div>
+    <div  align="right" style="margin-right: 1em;" >
+        <label style="margin-right: 10em;" id="refreshing">loading...</label>
+        <button id="refresh" style="margin-right:2em;"><img src="img/refresh_button.png" width=18px height=18px></button>
+        <button id="watchlist" style="margin-right:2em;">Watchlist</button>
+        <button id="trades" style="margin-right:2em;" disabled>Trades</button>
+
+        <button id="order" style="margin-right:2em;">Order</button>
+        <button id="settings" style="margin-right:2em;"><img src="img/settings_icon.png" width=18px height=18px></button>
+    </div>
+    <h3>Account</h3><br>
+    <p id="account"></p><br>
+    <h3>Notification</h3><br>
+    <div id="notification_loading">loading...</div>
+    <p id="notification"></p><br>
+    <h3>Balance</h3><br>
+    <div id="balance_loading">loading...</div>
+    <div class="limiter">
+        <div class="wrap-table100">
+            <div class="table100">
+                <table id="balance">
+                </table>
+            </div>
+        </div>
+    </div>
+    <br><h3>Positions</h3><br>
+        <div id="pos_loading">loading...</div>
+        <div class="limiter">
+                <div class="wrap-table100">
+                    <div class="table100">
+                        <table id="positions">
+                        </table>
+                    </div>
+                </div>
+        </div>
+    <br><h3>Active Orders</h3><br>
+        <div id="order_loading">loading...</div>
+        <div class="limiter">
+                <div class="wrap-table100">
+                    <div class="table100">
+                        <table id="active_orders">
+                        </table>
+                    </div>
+                </div>
+        </div>
+    <br><h3>Active Deposits</h3><br>
+        <div id="deposit_loading">loading...</div>
+        <div class="limiter">
+                <div class="wrap-table100">
+                    <div class="table100">
+                        <table id="active_deposits">
+                        </table>
+                    </div>
+                </div>
+        </div>
+    <br><h3>Active Withdrawals</h3><br>
+        <div id="withdraw_loading">loading...</div>
+        <div class="limiter">
+                <div class="wrap-table100">
+                    <div class="table100">
+                        <table id="active_withdrawals">
+                        </table>
+                    </div>
+                </div>
+        </div>
+    <br><h3>Error Messages</h3><br>
+        <div id="err_loading">loading...</div>
+        <div class="limiter">
+                <div class="wrap-table100">
+                    <div class="table100">
+                        <table id="err_msgs">
+                        </table>
+                    </div>
+                </div>
+        </div>
+</div>
+<script src="../js/dashboard.js"></script>
+
+</body>
+</html>
