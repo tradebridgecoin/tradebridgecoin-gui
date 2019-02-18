@@ -1,0 +1,55 @@
+{
+  "name": "tradebridgecoinclient",
+  "version": "0.1.0",
+  "main": "main.js",
+  "dependencies": {
+    "bip39": "^2.5.0",
+    "console-stamp": "latest",
+    "each-cons": "latest",
+    "ethereumjs-wallet": "^0.6.0",
+    "http": "latest",
+    "https": "latest",
+    "jsdom": "^11.12.0",
+    "moment-timezone": "latest",
+    "node-gyp": "^3.8.0",
+    "sqlite3": "^4.0.3",
+    "sync-request": "6.0.0",
+    "web3": "1.0.0-beta.35"
+  },
+  "devDependencies": {
+    "electron": "4.0.0-beta.3",
+    "electron-builder": "^20.38.5",
+    "electron-rebuild": "^1.8.2"
+  },
+  "build": {
+    "appId": "com.tbc.app",
+    "files": [
+      "**/*"
+    ],
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ]
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "zip"
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage"
+      ],
+      "icon": "./256x256.png"
+    }
+  },
+  "scripts": {
+    "dist": "electron-builder --linux --x64",
+    "postinstall": "electron-builder install-app-deps",
+    "package": "./node_modules/.bin/electron-packager ./ TBC --out ./out --app-version 1.0.0 --overwrite --icon=./tbc.ico",
+    "electron": "./node_modules/.bin/electron ./",
+    "electron-debug": "./node_modules/.bin/electron --debug=5858 ./"
+  }
+}
