@@ -20,6 +20,9 @@ const moment = require('moment-timezone');
 
 const fs = require('fs');
 const { remote, BrowserWindow, dialog } = require('electron');
+
+process.env.TBCTMP = getParam('net') === 'mainnet' ? 'LIVE' : 'PAPER';
+
 const TD = require('../../api/trade-on-chain');
 const MD = require('../../api/market-data-feed');
 const meta = require('../../api/metadata').metadata.data;

@@ -9,6 +9,9 @@ const refresh_seconds = document.getElementById('refresh_seconds');
 const { remote, ipcRenderer } = require('electron');
 const BrowserWindow = require('electron').remote.BrowserWindow;
 const moment = require('moment-timezone');
+
+process.env.TBCTMP = getParam('net') === 'mainnet' ? 'LIVE' : 'PAPER';
+
 const MD = require('../../api/market-data-feed');
 const TD = require('../../api/trade-on-chain');
 const meta = require('../../api/metadata').metadata.data;

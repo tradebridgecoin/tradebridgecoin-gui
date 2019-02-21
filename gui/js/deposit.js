@@ -9,6 +9,11 @@ const token_price = document.getElementById('token_price');
 
 const fs = require('fs');
 const { remote, BrowserWindow } = require('electron');
+
+console.log(`TBCTMP:\t${process.env.TBCTMP}`);
+process.env.TBCTMP = getParam('net') === 'mainnet' ? 'LIVE' : 'PAPER';
+console.log(`TBCTMP:\t${process.env.TBCTMP}`);
+
 const TD = require('../../api/trade-on-chain');
 
 let account, td, ether_balance, queriedGasPrice;

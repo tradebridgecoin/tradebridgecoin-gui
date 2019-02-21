@@ -10,6 +10,9 @@ const beneficiary = document.getElementById('beneficiary');
 
 const fs = require('fs');
 const { remote, BrowserWindow } = require('electron');
+
+process.env.TBCTMP = getParam('net') === 'mainnet' ? 'LIVE' : 'PAPER';
+
 const TD = require('../../api/trade-on-chain');
 
 let endpoint, account, td, token_balance, queriedGasPrice;

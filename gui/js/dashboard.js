@@ -1,3 +1,4 @@
+
 const moment = require('moment-timezone');
 const sqlite = require('sqlite3');
 
@@ -14,6 +15,9 @@ const { remote } = require('electron');
 const appDataDir = remote.app.getPath('userData');
 const ipcDashboard = require('electron').ipcRenderer;
 const BrowserWindow = require('electron').remote.BrowserWindow;
+
+process.env.TBCTMP = getParam('net') === 'mainnet' ? 'LIVE' : 'PAPER';
+
 const TD = require('../../api/trade-on-chain');
 const MD = require('../../api/market-data-feed');
 
@@ -289,19 +293,19 @@ let depositWindow = () => {
     console.log('open deposit Window');
     let depositWin = new BrowserWindow({parent: remote.getCurrentWindow(), modal: true, show: false});
 
-    depositWin.loadURL(`file://${__dirname}/deposit.html?account=${account}&endpoint=${endpoint}&agent=${agent}`);
+    depositWin.loadURL(`file://${__dirname}/deposit.html?account=${account}&net=${getParam('net')}&endpoint=${endpoint}&agent=${agent}`);
     depositWin.once('ready-to-show', () => {
         depositWin.show()
     });
     depositWin.on('close', () => refreshPortfolio(td));
-    // depositWin.webContents.openDevTools();
+    depositWin.webContents.openDevTools();
 };
 
 let withdrawWindow = () => {
     console.log('open withdraw Window');
     let withdrawWin = new BrowserWindow({parent: remote.getCurrentWindow(), modal: true, show: false});
 
-    withdrawWin.loadURL(`file://${__dirname}/withdraw.html?account=${account}&endpoint=${endpoint}`);
+    withdrawWin.loadURL(`file://${__dirname}/withdraw.html?account=${account}&net=${getParam('net')}&endpoint=${endpoint}`);
     withdrawWin.once('ready-to-show', () => {
         withdrawWin.show()
     });
@@ -313,7 +317,7 @@ let orderWindow = (orderToClose) => {
     let orderWin = new BrowserWindow({parent: remote.getCurrentWindow(), modal: true, show: false});
     let closeInfo = orderToClose.open_close !== undefined ? `&open_close=${orderToClose.open_close}&direction=${orderToClose.direction}&category=${orderToClose.category}&symbol=${orderToClose.symbol}&leverage=${orderToClose.leverage}&txHash=${orderToClose.txHash}&tokens_to_invest=${orderToClose.tokens_to_invest}` : '';
     console.log(`closeInfo:${closeInfo}`);
-    orderWin.loadURL(`file://${__dirname}/order.html?account=${account}&endpoint=${endpoint}${closeInfo}`);
+    orderWin.loadURL(`file://${__dirname}/order.html?account=${account}&net=${getParam('net')}&endpoint=${endpoint}${closeInfo}`);
     orderWin.once('ready-to-show', () => {
         orderWin.show()
     });
@@ -323,7 +327,7 @@ let orderWindow = (orderToClose) => {
 
 let tradesWindow = () => {
     let tradesWin = new BrowserWindow({parent: remote.getCurrentWindow(), modal: false, show: false, width: 1200, height: 600});
-    tradesWin.loadURL(`file://${__dirname}/trades.html?account=${account}&endpoint=${endpoint}&trades=${JSON.stringify(allTrades)}`);
+    tradesWin.loadURL(`file://${__dirname}/trades.html?account=${account}&net=${getParam('net')}&endpoint=${endpoint}&trades=${JSON.stringify(allTrades)}`);
     tradesWin.once('ready-to-show', () => {
         tradesWin.show()
     });
@@ -335,7 +339,7 @@ let transferWindow = () => {
     console.log('open transfer Window');
     let transferWin = new BrowserWindow({parent: remote.getCurrentWindow(), modal: true, show: false});
 
-    transferWin.loadURL(`file://${__dirname}/transfer.html?account=${account}&endpoint=${endpoint}`);
+    transferWin.loadURL(`file://${__dirname}/transfer.html?account=${account}&net=${getParam('net')}&endpoint=${endpoint}`);
     transferWin.once('ready-to-show', () => {
         transferWin.show()
     });
@@ -356,7 +360,7 @@ let settingsWindow = () => {
         agent = settings.get('referrer');
         startBlock = settings.get('startBlockNumber');
         let settingsObj = Array.from(settings).reduce((r,a) => {r[a[0]] = a[1]; return r}, {});
-        settingsWin.loadURL(`file://${__dirname}/settings.html?account=${account}&settings=${JSON.stringify(settingsObj)}`);
+        settingsWin.loadURL(`file://${__dirname}/settings.html?account=${account}&net=${getParam('net')}&settings=${JSON.stringify(settingsObj)}`);
         settingsWin.once('ready-to-show', () => {
             settingsWin.show()
         });
@@ -378,7 +382,7 @@ let watchlistWindow = () => {
         endpoint = settings.get('ethereumNet') === 'mainnet' ? settings.get('endpoint_live') : settings.get('endpoint_paper');
         agent = settings.get('referrer');
         startBlock = settings.get('startBlockNumber');
-        watchlistWin.loadURL(`file://${__dirname}/watchlist.html?account=${account}&endpoint=${endpoint}&watchlist=${settings.get('watchList')}`);
+        watchlistWin.loadURL(`file://${__dirname}/watchlist.html?account=${account}&net=${getParam('net')}&endpoint=${endpoint}&watchlist=${settings.get('watchList')}`);
         watchlistWin.once('ready-to-show', () => {
             watchlistWin.show()
         });
