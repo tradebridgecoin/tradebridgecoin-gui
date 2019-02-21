@@ -17,6 +17,7 @@ const category_tip = document.getElementById('category_tip');
 const place_order = document.getElementById('place_order');
 const symbol_dropdown = document.getElementById('history_symbols');
 const moment = require('moment-timezone');
+const minGas = 25;
 
 const fs = require('fs');
 const { remote, BrowserWindow, dialog } = require('electron');
@@ -157,7 +158,7 @@ let onBodyLoad = () => {
     TD.newInstance({endpoint, account, agent: ''}).then(async trade => {
         td = trade;
         md = new MD(td);
-        queriedGasPrice = await td.query_gas_price(true);
+        queriedGasPrice = Math.max((await td.query_gas_price(true)) + 10, minGas);
         gas_price.placeholder = `gas price: default to ${queriedGasPrice}`;
         token_balance = await td.token_balance();
         tokens_to_invest.placeholder = `tokens to invest. balance: ${token_balance}`;
@@ -271,6 +272,7 @@ let onNextButtonClick = async () => {
                         let confirmJson = JSON.parse(receipt.confirmation);
                         confirmJson.ror = ((confirmJson.ror || 0) * 100).toFixed(4) + '%';
                         confirmJson.pnl = (confirmJson.pnl || 0) / 1e6;
+                        confirmJson.tokenInvested = (confirmJson.tokenInvested || 0) / 1e6;
                         msgBoard.innerHTML = `the order has been confirmed:<br>${JSON.stringify(confirmJson, null, '<br>').replace(/\\n\\r/g, '').replace('{', '').replace('}', '').replace(/"/g, '')}`;
                         scrollToBottom()
                     })

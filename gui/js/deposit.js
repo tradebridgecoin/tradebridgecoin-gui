@@ -9,10 +9,9 @@ const token_price = document.getElementById('token_price');
 
 const fs = require('fs');
 const { remote, BrowserWindow } = require('electron');
+const minGas = 25;
 
-console.log(`TBCTMP:\t${process.env.TBCTMP}`);
 process.env.TBCTMP = getParam('net') === 'mainnet' ? 'LIVE' : 'PAPER';
-console.log(`TBCTMP:\t${process.env.TBCTMP}`);
 
 const TD = require('../../api/trade-on-chain');
 
@@ -39,7 +38,7 @@ let onBodyLoad = () => {
     console.log(`account:\t${account}`);
     TD.newInstance({endpoint, account, agent}).then(async trade => {
         td = trade;
-        queriedGasPrice = await td.query_gas_price(true);
+        queriedGasPrice = Math.max((await td.query_gas_price(true)) + 10, minGas);
         gas_price.placeholder = `gas price: default to ${queriedGasPrice}`;
         ether_balance = await td.ether_balance();
         ethers_deposit.placeholder = `ethers to deposit. balance: ${ether_balance}`;

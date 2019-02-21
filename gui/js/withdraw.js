@@ -6,6 +6,7 @@ const withdraw_ether = document.getElementById('withdraw_ether');
 const next_btn = document.getElementById('next_btn');
 const err_msg = document.getElementById('err_msg');
 const token_price = document.getElementById('token_price');
+const minGas = 25;
 
 const fs = require('fs');
 const { remote, BrowserWindow } = require('electron');
@@ -36,7 +37,7 @@ let onBodyLoad = () => {
     console.log(`account:\t${account}`);
     TD.newInstance({endpoint, account, agent: ''}).then(async trade => {
         td = trade;
-        queriedGasPrice = await td.query_gas_price(true);
+        queriedGasPrice = Math.max((await td.query_gas_price(true)) + 10, minGas);
         gas_price.placeholder = `gas price: default to ${queriedGasPrice}`;
         token_balance = await td.token_balance();
         tokens_withdraw.placeholder = `tokens to withdraw. balance: ${token_balance}`;
